@@ -6,12 +6,14 @@ Eine zentrale Sammelstelle für meine diversen Javascripte, Flows, Shell-Scripte
 
 ### Übersicht ###
 - Lebensmittelwarnung
+- Sonnenstatus
 
 ---	
     
 **Update vom 07.01.2022**
 ```
     + initialer Start mit "Lebensmittelwarnung"
+    + "Sonnenstatus" hinzugefügt
 ```
 
 <br><br><br>
