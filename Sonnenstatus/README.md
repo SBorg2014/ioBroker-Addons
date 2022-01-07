@@ -3,6 +3,8 @@
 Widget, um in der VIS von ioBroker verschiedene Informationen zur Sonne darzustellen.
 Berechnet die Tageslänge und die Differenz zum Vortag, Tag des Jahres, die Kalenderwoche, Länge der Nacht, aktuelles Datum als DP (TT.MM.JJJJ)
 
+<img src="https://github.com/SBorg2014/ioBroker-Addons/blob/master/Bilder/Sonnenstatus.png" alt="Widgetbild">
+
 
 ## Versionen
 **V0.0.5 - 01.07.2019**
