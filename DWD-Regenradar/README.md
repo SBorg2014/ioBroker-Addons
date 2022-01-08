@@ -1,6 +1,6 @@
 # DWD-Regenradar
 
-Javascript welches im einstellbaren Raster ein Bild und eine annimierte GIF des 
+**Javascript** welches im einstellbaren Raster ein Bild und eine annimierte GIF des 
 Regenradars für das konfigurierte Bundesland herunterlädt.
 Das Bild wird direkt im Datenpunkt abgelegt und nicht als Datei gespeichert.
 Deswegen sollte man sich den Datenpunkt des GIFs (Film), auch wenn er leer erscheint,
@@ -15,8 +15,9 @@ Es ist lediglich ein Binding auf den Datenpunkt nötig:
 
 Natürlich sind im HTML auch weitere Attribute (wie hier *width*) möglich.
 
-<img src="https://www.dwd.de/DWD/wetter/radar/rad_hes_akt.jpg" alt="DWD Wetterbild Hessen"><img src="https://www.dwd.de/DWD/wetter/radar/radfilm_hes_akt.gif" alt="DWD Wetterfilm Hessen">
-
+<img src="https://www.dwd.de/DWD/wetter/radar/rad_hes_akt.jpg" alt="DWD Wetterbild Hessen">
+<img src="https://www.dwd.de/DWD/wetter/radar/radfilm_hes_akt.gif" alt="DWD Wetterfilm Hessen">
+(Test)[https://www.dwd.de/DWD/wetter/radar/radfilm_hes_akt.gif]
 
 
 ## Versionen  
