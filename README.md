@@ -5,6 +5,7 @@ Eine zentrale Sammelstelle für meine diversen Javascripte, Flows, Shell-Scripte
 ---
 
 ### Übersicht ###
+- DWD-Regenradar
 - Lebensmittelwarnung
 - Sonnenstatus
 
