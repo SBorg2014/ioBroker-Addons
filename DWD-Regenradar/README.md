@@ -15,10 +15,10 @@ Es ist lediglich ein Binding auf den Datenpunkt nötig:
 
 Natürlich sind im HTML auch weitere Attribute (wie hier *width*) möglich.
 
-<img src="https://www.dwd.de/DWD/wetter/radar/rad_hes_akt.jpg" alt="DWD Wetterbild Hessen">
-<img src="https://www.dwd.de/DWD/wetter/radar/radfilm_hes_akt.gif" alt="DWD Wetterfilm Hessen">
-(Test)[https://www.dwd.de/DWD/wetter/radar/radfilm_hes_akt.gif]
+<img src="https://github.com/SBorg2014/ioBroker-Addons/blob/master/Bilder/rad_hes_akt.jpg" alt="DWD Wetterbild Hessen" height="200" /> <img src="https://github.com/SBorg2014/ioBroker-Addons/blob/master/Bilder/radfilm_hes_akt.gif" height="200" alt="DWD Wetterfilm Hessen" />
 
+Das Abfrageintervall auf unter 10 Minuten zu setzen ist unnötig, da idR. der DWD die Bilder nur ca. alle 10 Minuten updated.
+Im Script ist noch eine zufällige Zeitverzögerung von bis zu 60 Sekunden vorhanden. Damit wird vermieden, dass zu viele Anfragen von Nutzern *gleichzeitig* auf den Webserver vom Deutschen Wetterdienst einprasseln. So wird die Last wenigstens etwas verteilt. Der Fairness gegenüber allen Nutzern sollte man dies bitte so belassen. Sonst könnte die Art dieser Abfrage ev. gesperrt werden und keiner kann sich mehr etwas anzeigen lassen... 
 
 ## Versionen  
 **V0.0.1 - erstes Release**
