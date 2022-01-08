@@ -9,7 +9,11 @@ Eine zentrale Sammelstelle für meine diversen Javascripte, Flows, Shell-Scripte
 - Sonnenstatus
 
 ---	
-    
+
+**Update vom 08.01.2022**
+```
+    + "DWD-Regenradar" hinzugefügt
+```
 **Update vom 07.01.2022**
 ```
     + initialer Start mit "Lebensmittelwarnung"
