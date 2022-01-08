@@ -2,12 +2,15 @@
 
 Eine zentrale Sammelstelle für meine diversen Javascripte, Flows, Shell-Scripte und der gleichen mehr...
 
+
 ---
 
 ### Übersicht ###
-- DWD-Regenradar
-- Lebensmittelwarnung
-- Sonnenstatus
+| Projekt | Type | Widget
+| --- | --- | :---:
+| DWD-Regenradar | Javascript | -
+| Lebensmittelwarnung | Javascript | **X**
+| Sonnenstatus | Javascript | **X**
 
 ---	
 
