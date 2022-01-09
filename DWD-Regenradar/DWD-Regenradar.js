@@ -1,7 +1,8 @@
-/* DWD-Regenradar
+/* DWD-Regenradar by SBorg
    holt die aktuelle Übersicht vom Deutschen Wetterdienst
 
- (SBorg) V0.0.1 / 01.01.2022 - erste Version
+  V0.0.2 / 09.01.2022 - ~ Schreibzugriff auf die Datenpunkte entfernt
+  V0.0.1 / 01.01.2022 - erste Version
 
 
   Codierung für Bundesländer (lt. Sortierung des DWD):
@@ -80,6 +81,6 @@ function getData() {
 }
 
 function makeDataPoints() {
-    if (!existsState(idDp)) { createState(idDp, "", {name: "Regenradar für " + BuLa_arr[BuLand] , type: "mixed", role: "state"}); }
-    if (!existsState(idDp_Film)) { createState(idDp_Film, "", {name: "Regenradar für " + BuLa_arr[BuLand], type: "mixed", role: "state"}); } 
+    if (!existsState(idDp)) { createState(idDp, "", {name: "Regenradar für " + BuLa_arr[BuLand] , type: "mixed", role: "state", read: true, write: false}); }
+    if (!existsState(idDp_Film)) { createState(idDp_Film, "", {name: "Regenradar für " + BuLa_arr[BuLand], type: "mixed", role: "state", read: true, write: false}); } 
 }
