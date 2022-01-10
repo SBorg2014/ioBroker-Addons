@@ -1,6 +1,7 @@
 /* DWD-Regenradar by SBorg
    holt die aktuelle Übersicht vom Deutschen Wetterdienst
 
+  V0.0.3 / 10.01.2022 - + Satellitenradar hinzugefügt
   V0.0.2 / 09.01.2022 - ~ Schreibzugriff auf die Datenpunkte entfernt
   V0.0.1 / 01.01.2022 - erste Version
 
@@ -22,6 +23,7 @@
 
 // Usereinstellungen
 const BuLand = 3;                               // für welches Bundesland?
+const SatRadar = false;                         // [true/false] Bilder für Satellitenradar hinzufügen
 const DP = "0_userdata.0.Wetter.RegenRadar.";   // wo sollen die Daten angelegt werden?
 const Zeitplan = "*/10 * * * *";                // wann sollen die Daten geholt werden (cron-Syntax)?
 
@@ -38,8 +40,10 @@ const Zeitplan = "*/10 * * * *";                // wann sollen die Daten geholt 
 const axios = require('axios'); 
 const url_jpg = 'https://www.dwd.de/DWD/wetter/radar/rad_' + url_arr[BuLand] + '_akt.jpg';
 const url_gif = 'https://www.dwd.de/DWD/wetter/radar/radfilm_' + url_arr[BuLand] + '_akt.gif';
+const url_sat = 'https://www.dwd.de/DWD/wetter/sat/satwetter/njob_satrad.png';
 const idDp = DP + BuLa_arr[BuLand];
 const idDp_Film = DP + BuLa_arr[BuLand] + '_Film';
+const idDp_SatRadar = DP + 'SatRadar';
 
 
 makeDataPoints();                             // check ob DPs existieren
@@ -53,7 +57,7 @@ function getDaten() {
 }
 
 function getData() {
-    let buffer, buffer_gif;
+    let buffer, buffer_gif, buffer_sat;
     axios
         .get(url_jpg, {
           responseType: 'arraybuffer'
@@ -78,9 +82,26 @@ function getData() {
     .catch(ex => {
         log("Fehler bei Film: " + ex,"warn");
     });
+
+  if ( SatRadar ) {
+   axios
+        .get(url_sat, {
+          responseType: 'arraybuffer'
+        })
+    .then(response => {
+        buffer_sat = "data:" + response.headers['content-type'] + ";base64, " + Buffer.from(response.data, 'binary').toString('base64');
+        setState(idDp_SatRadar, buffer_sat, true);
+    })
+    .catch(ex => {
+        log("Fehler bei Satellitenradarbild: " + ex,"warn");
+    });   
+  }
+
+
 }
 
 function makeDataPoints() {
     if (!existsState(idDp)) { createState(idDp, "", {name: "Regenradar für " + BuLa_arr[BuLand] , type: "mixed", role: "state", read: true, write: false}); }
     if (!existsState(idDp_Film)) { createState(idDp_Film, "", {name: "Regenradar für " + BuLa_arr[BuLand], type: "mixed", role: "state", read: true, write: false}); } 
+    if (SatRadar) { if (!existsState(idDp_SatRadar)) { createState(idDp_SatRadar, "", {name: "Satellitenbild", type: "mixed", role: "state", read: true, write: false}); } }
 }
