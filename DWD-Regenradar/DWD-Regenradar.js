@@ -1,6 +1,8 @@
 /* DWD-Regenradar by SBorg
-   holt die aktuelle Übersicht vom Deutschen Wetterdienst
+   holt die aktuelle Übersicht vom Deutschen Wetterdienst und Foreca
 
+  V0.1.0 / 16.01.2022 - + Foreca-Regenradar hinzugefügt
+                        ~ Codeoptimierungen
   V0.0.3 / 10.01.2022 - + Satellitenradar hinzugefügt
   V0.0.2 / 09.01.2022 - ~ Schreibzugriff auf die Datenpunkte entfernt
   V0.0.1 / 01.01.2022 - erste Version
@@ -23,7 +25,12 @@
 
 // Usereinstellungen
 const BuLand = 3;                               // für welches Bundesland?
-const SatRadar = false;                         // [true/false] Bilder für Satellitenradar hinzufügen
+const SatRadar = true;                          // [true/false] Bilder für Satellitenradar laden?
+const Foreca = true;                            // [true/false] Bilder von Foreca laden? Falls true --> Foreca_GPS konfigurieren!
+const Foreca_GPS = "0.00/00.00";                /* GPS-Koordinaten für die das Bild geladen werden soll. Ermittlung zB. unter 
+                                                   https://www.laengengrad-breitengrad.de
+                                                   Achtung: Eingabe als "Breitengrad/Längengrad" [x.xx/y.yy]
+                                                   2 Nachkommastellen genügen idR.  */
 const DP = "0_userdata.0.Wetter.RegenRadar.";   // wo sollen die Daten angelegt werden?
 const Zeitplan = "*/10 * * * *";                // wann sollen die Daten geholt werden (cron-Syntax)?
 
@@ -41,9 +48,11 @@ const axios = require('axios');
 const url_jpg = 'https://www.dwd.de/DWD/wetter/radar/rad_' + url_arr[BuLand] + '_akt.jpg';
 const url_gif = 'https://www.dwd.de/DWD/wetter/radar/radfilm_' + url_arr[BuLand] + '_akt.gif';
 const url_sat = 'https://www.dwd.de/DWD/wetter/sat/satwetter/njob_satrad.png';
+const url_foreca = 'https://map-cf.foreca.net/teaser/map/green/radar/7/' + Foreca_GPS + '/336/400.png?units=mm';
 const idDp = DP + BuLa_arr[BuLand];
 const idDp_Film = DP + BuLa_arr[BuLand] + '_Film';
 const idDp_SatRadar = DP + 'SatRadar';
+const idDp_Foreca = DP + 'Foreca';
 
 
 makeDataPoints();                             // check ob DPs existieren
@@ -56,52 +65,31 @@ function getDaten() {
     setTimeout(function() { getData(); }, warte);
 }
 
-function getData() {
-    let buffer, buffer_gif, buffer_sat;
+function loadData(url_Bild, DatenPunkt) {
+    let buffer;
     axios
-        .get(url_jpg, {
+        .get(url_Bild, {
           responseType: 'arraybuffer'
         })
     .then(response => {
         buffer = "data:" + response.headers['content-type'] + ";base64, " + Buffer.from(response.data, 'binary').toString('base64');
-        setState(idDp, buffer, true);
+        setState(DatenPunkt, buffer, true);
     })
     .catch(ex => {
-        log("Fehler bei JPG: " + ex,"warn");
+        log("Fehler bei " + url_Bild + " : " + ex,"warn");
     });
+}
 
-
-    axios
-        .get(url_gif, {
-          responseType: 'arraybuffer'
-        })
-    .then(response => {
-        buffer_gif = "data:" + response.headers['content-type'] + ";base64, " + Buffer.from(response.data, 'binary').toString('base64');
-        setState(idDp_Film, buffer_gif, true);
-    })
-    .catch(ex => {
-        log("Fehler bei Film: " + ex,"warn");
-    });
-
-  if ( SatRadar ) {
-   axios
-        .get(url_sat, {
-          responseType: 'arraybuffer'
-        })
-    .then(response => {
-        buffer_sat = "data:" + response.headers['content-type'] + ";base64, " + Buffer.from(response.data, 'binary').toString('base64');
-        setState(idDp_SatRadar, buffer_sat, true);
-    })
-    .catch(ex => {
-        log("Fehler bei Satellitenradarbild: " + ex,"warn");
-    });   
-  }
-
-
+function getData() {
+    loadData(url_jpg, idDp);
+    loadData(url_gif, idDp_Film);
+    if ( SatRadar ) { loadData(url_sat, idDp_SatRadar); }
+    if ( Foreca )   { loadData(url_foreca, idDp_Foreca); }
 }
 
 function makeDataPoints() {
     if (!existsState(idDp)) { createState(idDp, "", {name: "Regenradar für " + BuLa_arr[BuLand] , type: "mixed", role: "state", read: true, write: false}); }
     if (!existsState(idDp_Film)) { createState(idDp_Film, "", {name: "Regenradar für " + BuLa_arr[BuLand], type: "mixed", role: "state", read: true, write: false}); } 
     if (SatRadar) { if (!existsState(idDp_SatRadar)) { createState(idDp_SatRadar, "", {name: "Satellitenbild", type: "mixed", role: "state", read: true, write: false}); } }
+    if (Foreca) { if (!existsState(idDp_Foreca)) { createState(idDp_Foreca, "", {name: "Regenradarbild", type: "mixed", role: "state", read: true, write: false}); } }
 }
