@@ -26,6 +26,7 @@ Danach Konfiguration des Skripts vornehmen (Auszug der User-Einstellungen aus de
 const debug    = false;                                  //debuggen [true/false]?
 const Anzahl   = 5;                                      //wie viele Warnungen sollen gelesen werden?
 const BuLand   = true;                                   //zeige Bundesländer an [true/false]?
+let   Reset_neueMeldung = 0;                             // [0-n] Minuten; wann soll "neue Meldung" zurückgesetzt werden? 0=nie
 const DP       = 'javascript.0.VIS.Lebensmittelwarnung'; //Datenpunkt
 var   FILTER   = ['false'];                              //ausfiltern bestimmter Suchbegriffe (auch RegEx) oder 'false' für keinen Filter
 var   LAENDER  = [7];                                    /*Warnung für welches Bundesland/-länder; kommasepariert
@@ -78,6 +79,11 @@ Jüngste zuerst (LIFO).<br>
 
 
 ## Versionen ##
+**V0.1.0 - 23.01.2022**
+```
+    + automatischer Reset für "neue Meldung" hinzugefügt   
+ ```
+   
 **V0.0.8 - 31.10.2019**
 ``` 
     + Meldungen für mehrere Bundesländer möglich
