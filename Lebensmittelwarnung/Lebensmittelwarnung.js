@@ -1,6 +1,6 @@
-
 /*
-   (c)2019 by SBorg 
+   (c)2019-2022 by SBorg 
+   V0.1.0 - 23.01.2022 + automatischer Reset für "neue Meldung" hinzugefügt
    V0.0.8 - 31.10.2019 + Meldungen für mehrere Bundesländer möglich
    V0.0.7 - 03.10.2019 ~ mehrere Filter möglich
    V0.0.6 - 02.09.2019 ~ Wochentage und Monate auf dt. Datumsformat gepatcht
@@ -19,7 +19,7 @@
    holt die Warnungen von Lebensmittelwarnung.de aus deren RSS-Feed
    benötigt 'rss-parser': cd /opt/iobroker && npm install --save rss-parser
 
-      ToDo: - besseres Datenpunktmanagment
+      ToDo: - 
    
    known issues: keine
 
@@ -29,6 +29,7 @@
 const debug    = false;                                  //debuggen [true/false]?
 const Anzahl   = 5;                                      //wie viele Warnungen sollen gelesen werden?
 const BuLand   = true;                                   //zeige Bundesländer an [true/false]?
+let   Reset_neueMeldung = 0;                             //[0-n] Minuten; wann soll "neue Meldung" zurückgesetzt werden? 0=nie
 const DP       = 'javascript.0.VIS.Lebensmittelwarnung'; //Datenpunkt
 var   FILTER   = ['false'];                              //ausfiltern bestimmter Suchbegriffe (auch RegEx) oder 'false' für keinen Filter
 var   LAENDER  = [7];                                    /*Warnung für welches Bundesland/-länder; kommasepariert
@@ -52,7 +53,8 @@ if (!isState(DP, false)) { createDP(); }
 //globale Nicht-User-Variablen
 const URL      = 'https://www.lebensmittelwarnung.de/bvl-lmw-de/opensaga/feed/alle/alle_bundeslaender.rss'
 let Laender    = ['alle','Baden-Württemberg','Bayern','Berlin','Brandenburg','Bremen','Hamburg','Hessen','Mecklenburg-Vorpommern',
-                  'Niedersachsen','Nordrhein-Westfalen','Rheinland-Pfalz','Saarland','Sachsen','Sachsen-Anhalt', 'Schleswig-Holstein','Thüringen'];
+                  'Niedersachsen','Nordrhein-Westfalen','Rheinland-Pfalz','Saarland','Sachsen','Sachsen-Anhalt','Schleswig-Holstein','Thüringen'];
+if (Reset_neueMeldung) { Reset_neueMeldung *= 60000; } //Umrechnung min --> ms 
 
 //Daten beim Start des Scripts abrufen
 polldata();
@@ -61,7 +63,7 @@ console.log('Hole Daten...');
 //neue Warnung?
 on({id: DP+".Nummer_0.Datum", change: "ne"}, function (obj) {
   console.log('Neue Warnmeldung vorhanden...');
-  setTimeout(function() { setState(DP+".neue_Warnung", 'true'); }, 3000);
+  setTimeout(function() { setState(DP+".neue_Warnung", 'true', true/*ack*/); }, 3000);
 });
 
 //scheduler
@@ -75,6 +77,12 @@ function polldata() {
     timeout: 60000,
     customFields: { item: [['description','description', {keepArray: true}],] }
  });
+ 
+ //Reset "neue Meldung"
+ if (Reset_neueMeldung) {
+     let last_message_ts = getState(DP+".Nummer_0.Datum").lc;
+     if (last_message_ts + Reset_neueMeldung < Date.now()) { setState(DP+".neue_Warnung", 'false', true/*ack*/); }
+ }
 
  (async () => {
  
@@ -99,7 +107,7 @@ function polldata() {
                 for(let anzFilter=0; anzFilter<FILTER.length; anzFilter++) { 
                     if (entry.description[0].search(FILTER[anzFilter]) == -1) { Treffer++; } 
                 }
-                if (Treffer==FILTER.length || FILTER[0] == "false") {
+                if (Treffer == FILTER.length || FILTER[0] == "false") {
                     //Bundesländer anzeigen?
                     if (BuLand === true) { Beschreibung = entry.description[0] } else { Beschreibung = entry.description[0].substring(0, entry.description[0].lastIndexOf('<b>Betroffene Länder:</b>')); }
                     //prüfen ob Bild vorhanden ist und ggf. parsen
@@ -165,7 +173,7 @@ function polldata() {
         return;
         }
 
-    })(); //end async
+   })(); //end async
 } //end func
 
 /*
