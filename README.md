@@ -11,7 +11,7 @@ Eine zentrale Sammelstelle für meine diversen Javascripte, Flows, Shell-Scripte
 | DWD-Regenradar | Javascript | -
 | Lebensmittelwarnung | Javascript | **X**
 | Sonnenstatus | Javascript | **X**
-| MailParser | Javascript | **X**
+| MailParser | Javascript | -
 
 ---	
 
