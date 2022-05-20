@@ -9,8 +9,7 @@ angelegt.
 Die Anzeige kann dann bspw. in der VIS mit einem passenden HTML-Widget erfolgen.
 
 
-<!--img src="https://github.com/SBorg2014/ioBroker-Addons/blob/master/Bilder/rad_hes_akt.jpg" alt="DWD Wetterbild Hessen" height="200" /> <img src="https://github.com/SBorg2014/ioBroker-Addons/blob/master/Bilder/radfilm_hes_akt.gif" height="200" alt="DWD Wetterfilm Hessen" /> <img src="https://github.com/SBorg2014/ioBroker-Addons/blob/master/Bilder/satradar.png" height="200" alt="DWD Satellitenregenradar" /> <img src="https://github.com/SBorg2014/ioBroker-Addons/blob/master/Bilder/Foreca.png" height="200" alt="Foreca Regenradar" /-->
-
+<img src="https://github.com/SBorg2014/ioBroker-Addons/blob/master/Bilder/MailParser_Anzeige.png" alt="Übersicht verpasste Klingelereignisse" /> <img src="https://github.com/SBorg2014/ioBroker-Addons/blob/master/Bilder/MailParser_VIS.png" height="200" alt="Foreca Regenradar" />
 
 ... 
 
