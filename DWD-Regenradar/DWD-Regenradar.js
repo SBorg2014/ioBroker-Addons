@@ -1,6 +1,7 @@
 /* DWD-Regenradar by SBorg
    holt die aktuelle Übersicht vom Deutschen Wetterdienst und Foreca
 
+  V0.2.0 / 15.06.2022 - + GPS-Koordinaten aus Systemkonfig lesen
   V0.1.0 / 16.01.2022 - + Foreca-Regenradar hinzugefügt
                         ~ Codeoptimierungen
   V0.0.3 / 10.01.2022 - + Satellitenradar hinzugefügt
@@ -27,9 +28,10 @@
 const BuLand = 3;                               // für welches Bundesland?
 const SatRadar = true;                          // [true/false] Bilder für Satellitenradar laden?
 const Foreca = true;                            // [true/false] Bilder von Foreca laden? Falls true --> Foreca_GPS konfigurieren!
-const Foreca_GPS = "0.00/00.00";                /* GPS-Koordinaten für die das Bild geladen werden soll. Ermittlung zB. unter 
-                                                   https://www.laengengrad-breitengrad.de
-                                                   Achtung: Eingabe als "Breitengrad/Längengrad" [x.xx/y.yy]
+let Foreca_GPS = "SYSTEM";                      /* GPS-Koordinaten für die das Bild geladen werden soll.
+                                                   Default: [SYSTEM] / =aus den Systemeinstellungen
+                                                   oder Ermittlung zB. unter https://www.laengengrad-breitengrad.de
+                                                   Achtung: Eingabe dann als "Breitengrad/Längengrad" [x.xx/y.yy]
                                                    2 Nachkommastellen genügen idR.  */
 const DP = "0_userdata.0.Wetter.RegenRadar.";   // wo sollen die Daten angelegt werden?
 const Zeitplan = "*/10 * * * *";                // wann sollen die Daten geholt werden (cron-Syntax)?
@@ -45,6 +47,8 @@ const Zeitplan = "*/10 * * * *";                // wann sollen die Daten geholt 
                  "Schleswig_Holstein_Hamburg", "Thueringen"];
 
 const axios = require('axios'); 
+if (Foreca_GPS=="SYSTEM") { let GPS = getObject("system.config"), lat = GPS.common.latitude, long = GPS.common.longitude;
+    Foreca_GPS=long+"/"+lat; }
 const url_jpg = 'https://www.dwd.de/DWD/wetter/radar/rad_' + url_arr[BuLand] + '_akt.jpg';
 const url_gif = 'https://www.dwd.de/DWD/wetter/radar/radfilm_' + url_arr[BuLand] + '_akt.gif';
 const url_sat = 'https://www.dwd.de/DWD/wetter/sat/satwetter/njob_satrad.png';
