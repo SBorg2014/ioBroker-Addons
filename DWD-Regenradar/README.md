@@ -24,6 +24,11 @@ Das Abfrageintervall auf unter 10 Minuten zu setzen ist unnötig, da idR. der DW
 Im Script ist noch eine zufällige Zeitverzögerung von bis zu 60 Sekunden vorhanden. Damit wird vermieden, dass zu viele Anfragen von Nutzern *gleichzeitig* auf den Webserver vom Deutschen Wetterdienst einprasseln. So wird die Last wenigstens etwas verteilt. Der Fairness gegenüber allen Nutzern sollte man dies bitte so belassen. Sonst könnte die Art dieser Abfrage ev. gesperrt werden und keiner kann sich mehr etwas anzeigen lassen... 
 
 ## Versionen
+**V0.2.0 / 15.06.2022**
+```
+  + GPS-Koordinaten aus Systemkonfig lesen
+```
+
 **V0.1.0 / 16.01.2022**
 ```
   + Foreca-Regenradar hinzugefügt
