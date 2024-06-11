@@ -20,16 +20,18 @@ Eine zentrale Sammelstelle für meine diversen Javascripte, Flows, Shell-Scripte
 **Update vom 11.06.2024**
 ```
     + "Biowetter" hinzugefügt
----	
+```
 
 **Update vom 20.05.2022**
 ```
     + "MailParser" hinzugefügt
 ```
+
 **Update vom 08.01.2022**
 ```
     + "DWD-Regenradar" hinzugefügt
 ```
+
 **Update vom 07.01.2022**
 ```
     + initialer Start mit "Lebensmittelwarnung"
