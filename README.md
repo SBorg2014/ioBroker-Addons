@@ -12,17 +12,26 @@ Eine zentrale Sammelstelle für meine diversen Javascripte, Flows, Shell-Scripte
 | Lebensmittelwarnung | Javascript | **X**
 | Sonnenstatus | Javascript | **X**
 | MailParser | Javascript | -
+| Biowetter | Javascript | -
+
 
 ---	
+
+**Update vom 11.06.2024**
+```
+    + "Biowetter" hinzugefügt
+```
 
 **Update vom 20.05.2022**
 ```
     + "MailParser" hinzugefügt
 ```
+
 **Update vom 08.01.2022**
 ```
     + "DWD-Regenradar" hinzugefügt
 ```
+
 **Update vom 07.01.2022**
 ```
     + initialer Start mit "Lebensmittelwarnung"
@@ -33,7 +42,7 @@ Eine zentrale Sammelstelle für meine diversen Javascripte, Flows, Shell-Scripte
 ## License ##
 The MIT License (MIT)
 
-Copyright (c) 2019-2022 SBorg
+Copyright (c) 2019-2024 SBorg
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
