@@ -1,5 +1,9 @@
-<h1>ioBroker-Lebensmittelwarnung</h1>
-
+<h1>ioBroker-Lebensmittelwarnung</h1> 
+ 
+ 
+$\color{#D29922}\textsf{\Large\&#x26A0;\kern{0.2cm}\normalsize Nach Einschränkungen des RSS-Feds aktuell obsolet 19.06.2024}$ 
+ 
+ 
 ***Dieses Javascript benötigt das NPM-Modul 'rss-parser'***
 
 ### Info ###
