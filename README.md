@@ -6,10 +6,10 @@ Eine zentrale Sammelstelle für meine diversen Javascripte, Flows, Shell-Scripte
 ---
 
 ### Übersicht ###
-| Projekt | Type | Widget
-| --- | --- | :---:
+| Projekt | Type | Widget | Bemerkung
+| --- | --- | --- | :---:
 | DWD-Regenradar | Javascript | -
-| Lebensmittelwarnung | Javascript | **X**
+| Lebensmittelwarnung | Javascript | **X** | obsolet (RSS wurde umgestellt 19.06.2024)
 | Sonnenstatus | Javascript | **X**
 | MailParser | Javascript | -
 | Biowetter | Javascript | -
