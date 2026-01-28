@@ -1,10 +1,10 @@
 /* Biowetter Parser von gesundheit.de
-
-http://forum.iobroker.net/viewtopic.php?f=23&t=2799&sid=936235bdac98a70a1d8672897d334a07#p25266
-
+ 
+https://forum.iobroker.net/topic/4441/biowetter-aus-wetteronline-wie-pollenflug/61
+ 
 05.05.2016 erstellt von steinwedel für homoran
 06.05.2016 Anpassung durch pix (Vorhersage mehrere Tage)
-
+ 
 Änderung in Biowetterparser
 12.01.2017 Biowetter
 14.01.2017 vom Pollenflug Skript separiert
@@ -12,24 +12,29 @@ http://forum.iobroker.net/viewtopic.php?f=23&t=2799&sid=936235bdac98a70a1d867289
 21.12.2021 (SBorg) Anpassungen an neuen HTML-Auftritt, Fehlerbeseitigung, request => axios, ack=true
 11.07.2022 (SBorg) Anpassungen an neuen HTML-Auftritt
 11.06.2024 (SBorg) Anpassung an JS 6.x und Umstellung von "axios" => "httpGet"
-
+28.01.2026 (SBorg) Umstellung auf URL-IDs, Änderung der URL, Timeout erhöht
+ 
 */
-
+ 
 const pfad = "0_userdata.0.Wetter.Biowetter.";
 const logging = false;
-
-// Städte können natürlich auch gelöscht werden
+ 
+// Städte können natürlich auch gelöscht werden. Die benötigte URL gibt es hier: https://www.gesundheit.de/biowetter-id213002/
 const stadt = [
     // Hessen     
-    { "URL_" : "frankfurt-am-main",
-      "name" : "Frankfurt am Main" }
+    { "URL_" : "frankfurt-am-main-id213038/",
+      "name" : "Frankfurt am Main" },
+    // Baden-Württemberg    
+    { "URL_" : "mannheim-id215733/",
+      "name" : "Mannheim" }  
 ];
-
+ 
  
 // ab hier nix mehr ändern
-const biowetter_url = "https://www.gesundheit.de/rat-hilfe/biowetter/";
+const biowetter_url = "https://www.gesundheit.de/biowetter/";
 const biodatenpunkte = ["heute", "morgen", "Kombi"];
-
+ 
+//const axios = require('axios');
  
 function bioDpAnlegen() {
     // alle Städte durchgehen
@@ -53,7 +58,7 @@ function readBiowetter() {
         setTimeout(function() {
             if (logging) log("Es wird abgefragt: " + s.URL_ + " für " + s.name);
             readURL(s.URL_, s.name);
-        }, 1000);
+        }, 10000);
     });
 }
  
@@ -64,7 +69,7 @@ function readURL(stadt_URL_, stadt_name) {
             url: biowetter_url + stadt_URL_, // korrekten Link erstellen
             headers: { "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1" }
         };
-        
+        //axios(options).then(function (response) {
         httpGet(options.url, (err, response) => { 
             if (response.statusCode == 200) { // kein Fehler, Inhalt in body
                 /* betroffener HTML Code
@@ -72,10 +77,10 @@ function readURL(stadt_URL_, stadt_name) {
                             <p>Die aktuelle Wetterlage belastet Herz und Kreislauf stärker als sonst üblich. Aufgrund der warmen Luftmasse ist die Durchblutung vermindert. Viele Menschen fühlen sich weiterhin müde und abgespannt. Trotzdem fällt der erholsame Tiefschlaf schwer. Menschen, die verstärkt mit Kopfschmerzen und Migräneattacken auf Wetterreize reagieren, sollten ihre Schmerzmittel nicht vergessen. Anstrengungen am Mittag und Nachmittag sollten vermieden werden.</p>
                             <h2>Morgen</h2>
                             <p>Mit der Witterung sind häufig Leistungs- und Konzentrationsdefizite verbunden. Auch das Reaktionsvermögen lässt nach, sodass die Unfallgefahr zunimmt. Wetterfühlige Menschen klagen vor allem über Kopfweh und eine erhöhte Müdigkeit.</p>
-
+ 
                             <div class="
                      */
-
+ 
                 // Code für HEUTE extrahieren
  
                 let wetter_heute;
@@ -147,5 +152,5 @@ function main() {
 }
  
 main();
-schedule("6 6 * * *", main);
+schedule("2 2 * * *", main);
  
