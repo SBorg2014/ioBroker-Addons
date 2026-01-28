@@ -33,6 +33,12 @@ ob die Syntax noch stimmt bzw. neue Einträge hinzu gekommen oder weggefallen si
 
 
 ## Versionen ##
+
+**28.01.2026**
+```
+    ~ Umstellung auf URL-IDs, Änderung der URL, Timeout erhöht
+```
+
 **11.06.2024**
 ```
     + Anpassung an JS 6.x und Umstellung von "axios" => "httpGet"   
@@ -42,7 +48,7 @@ ob die Syntax noch stimmt bzw. neue Einträge hinzu gekommen oder weggefallen si
 The MIT License (MIT)
 
 Copyright (c) 2016 steinwedel, pix  
-Copyright (c) 2019-2024 SBorg
+Copyright (c) 2019-2026 SBorg
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
