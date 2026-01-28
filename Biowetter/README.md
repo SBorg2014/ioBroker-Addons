@@ -17,13 +17,17 @@ Im Skript die gewünschten Einstellungen vornehmen:
 ```
 const pfad = "0_userdata.0.Wetter.Biowetter.";
 const logging = false;
-
-// Städte können natürlich auch gelöscht werden
+ 
+// Städte können natürlich auch gelöscht werden. Die benötigte URL gibt es hier: https://www.gesundheit.de/biowetter-id213002/
 const stadt = [
     // Hessen     
-    { "URL_" : "frankfurt-am-main",
-      "name" : "Frankfurt am Main" }
+    { "URL_" : "frankfurt-am-main-id213038/",
+      "name" : "Frankfurt am Main" },
+    // Baden-Württemberg    
+    { "URL_" : "mannheim-id215733/",
+      "name" : "Mannheim" }  
 ];
+
 ```
 
    
